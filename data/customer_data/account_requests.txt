@@ -1,0 +1,60 @@
+ACCOUNT SERVICE REQUESTS - FEBRUARY 2026
+
+---
+Request ID: REQ20260205-001
+Customer: Ahmed Lawal
+Account: 0567890124
+Date: February 5, 2026
+
+Request Type: Account Upgrade
+Details:
+Current Account Type: Regular Savings
+Requested: Premium Savings Account
+Reason: Need higher transaction limits for my growing business
+Average monthly inflow: ₦2.5 million
+
+Eligibility Check Needed
+
+---
+Request ID: REQ20260206-002
+Customer: Ngozi Eze
+Account: 0678901235
+Date: February 6, 2026
+
+Request Type: Dormant Account Reactivation
+Details:
+Last transaction: January 2024 (25 months ago)
+Current balance: ₦45,600
+Reason for dormancy: Traveled abroad for studies, now returned
+Updated KYC documents attached
+
+Action Required: Branch visit, BVN revalidation
+
+---
+Request ID: REQ20260207-003
+Customer: Ibrahim Suleiman
+Account: 0789012346
+Date: February 7, 2026
+
+Request Type: Transaction Limit Increase
+Details:
+Current daily transfer limit: ₦1,000,000
+Requested: ₦5,000,000
+Reason: Paying suppliers for import business
+Supporting docs: CAC, import documents, business bank statement
+
+Requires: Credit risk assessment
+
+---
+Request ID: REQ20260208-004
+Customer: Chinwe Obi
+Account: 0890123457
+Date: February 8, 2026
+
+Request Type: Interest Certificate
+Details:
+Period: January 2025 - December 2025
+Purpose: Tax filing
+Urgency: Needed by February 15, 2026
+
+Action: Finance department to generate

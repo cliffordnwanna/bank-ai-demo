@@ -1,0 +1,68 @@
+KYC COMPLIANCE ISSUES - FEBRUARY 2026
+
+---
+Issue ID: KYC20260201-001
+Customer: David Okonkwo
+Account: 0901234568
+
+Problem: BVN Mismatch
+Details:
+Name on BVN: David Chukwuemeka Okonkwo
+Name on account: David Okonkwo
+Date of Birth: Different (BVN shows 1985, account shows 1987)
+
+Action Required:
+- Customer to visit branch with valid ID
+- Affidavit for name variation
+- Birth certificate or NIN for DOB correction
+Deadline: February 20, 2026 (or account restriction)
+
+---
+Issue ID: KYC20260203-002
+Customer: Amina Yusuf
+Account: 1012345679
+
+Problem: Expired ID
+Details:
+Driver's license expired: December 2024
+No alternative valid ID on file
+Account opened 2019
+
+Action Required:
+- Upload new valid ID (passport, driver's license, or NIN slip)
+- Utility bill not older than 3 months
+Deadline: February 15, 2026
+
+---
+Issue ID: KYC20260205-003
+Customer: Emeka Industries Ltd
+Account: 1123456780
+
+Problem: Outdated CAC Documents
+Details:
+CAC certificate on file: 2020
+Current regulations require update every 3 years
+Directors' information incomplete
+
+Action Required:
+- Fresh CAC status report
+- Board resolution confirming current directors
+- Updated mandate card
+Deadline: February 28, 2026
+
+---
+Issue ID: KYC20260207-004
+Customer: Grace Adeleke
+Account: 1234567891
+
+Problem: Missing Signature
+Details:
+Account opened via ALAT (digital)
+No physical signature card on file
+Now requesting cheque book (requires signature)
+
+Action Required:
+- Customer to visit any branch
+- Complete signature card
+- Biometric capture
+Processing: 24 hours after visit

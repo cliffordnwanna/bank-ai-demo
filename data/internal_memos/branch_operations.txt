@@ -1,0 +1,44 @@
+WEMA BANK PLC
+INTERNAL OPERATIONS MEMO
+Date: February 1, 2026
+From: Head of Operations
+To: All Branch Managers
+
+Subject: FEBRUARY 2026 OPERATIONAL GUIDELINES
+
+1. CASH HANDLING
+- Max branch vault holding: ₦50 million
+- Excess to be evacuated to CPC daily
+- Dual custody mandatory for vault access
+- ATM replenishment: Armed escort required
+
+2. CUSTOMER SERVICE STANDARDS
+- Max waiting time: 15 minutes
+- Express counters for transactions < ₦50,000
+- Acknowledge complaints: Within 1 hour
+- Full resolution: 72 hours maximum
+
+3. ACCOUNT OPENING
+- Same-day opening if all docs complete
+- Corporate: Min ₦100,000 opening balance
+- Foreign nationals: Work permit required
+
+4. LOAN PROCESSING
+- Overdraft up to ₦2 million: Branch Manager approval
+- ₦2M - ₦10M: Regional Credit Committee
+- Above ₦10M: Head Office Credit Committee
+- Credit assessment: 48 hours
+
+5. SYSTEM DOWNTIME PROCEDURES
+- Switch to manual registers
+- Withdrawals: Manager approval required, max ₦100,000
+- Transfers: NOT allowed manually
+
+6. CONTACT ESCALATION
+- Robbery/Security: 09088888888 (24/7)
+- System outage > 2 hours: IT Helpdesk
+- Large withdrawal (> ₦5M): Ops Manager approval
+
+Signed,
+Adebayo Johnson
+Head of Operations

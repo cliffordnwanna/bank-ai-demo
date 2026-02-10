@@ -1,0 +1,60 @@
+CUSTOMER COMPLAINT LOG - FEBRUARY 2026
+
+---
+Complaint ID: CMP20260201-001
+Customer: John Bello
+Account: 0123456789
+Date: February 1, 2026
+
+Issue:
+I transferred ₦150,000 yesterday at 3:45 PM to Musa Traders (GTBank - 0234567890).
+The money left my account but the beneficiary claims they have not received it.
+I have tried calling customer service but the line has been busy.
+Please reverse or investigate urgently. I need this resolved today.
+
+Status: Pending
+Priority: High
+
+---
+Complaint ID: CMP20260202-002
+Customer: Fatima Ibrahim
+Account: 0234567891
+Date: February 2, 2026
+
+Issue:
+My ATM card was swallowed by the machine at Ikeja branch yesterday.
+I reported immediately but no one has called me back.
+I have urgent payments to make and cannot access my money.
+This is very frustrating. I have been banking with Wema for 8 years.
+
+Status: Pending
+Priority: High
+
+---
+Complaint ID: CMP20260203-003
+Customer: Chidi Okafor
+Account: 0345678902
+Date: February 3, 2026
+
+Issue:
+I applied for SME loan 3 weeks ago. I was told 48 hours turnaround.
+I have submitted all documents including collateral valuation.
+No feedback till now. My supplier is threatening to cancel the order.
+Account officer is not responding to calls. What is happening?
+
+Status: Pending
+Priority: Medium
+
+---
+Complaint ID: CMP20260204-004
+Customer: Blessing Adekunle
+Account: 0456789013
+Date: February 4, 2026
+
+Issue:
+I am being charged ₦50 monthly for SMS alerts I never requested.
+This has been going on for 6 months (total ₦300 wrongly debited).
+I have sent emails but no refund. Please reverse these charges.
+
+Status: Pending
+Priority: Low

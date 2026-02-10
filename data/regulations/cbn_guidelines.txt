@@ -1,0 +1,40 @@
+CENTRAL BANK OF NIGERIA (CBN)
+REGULATORY GUIDELINES FOR DEPOSIT MONEY BANKS
+Effective: 2025-2026
+
+1. ANTI-MONEY LAUNDERING (AML)
+- Mandatory reporting of single transactions > ₦5,000,000 (Individual)
+- Mandatory reporting of single transactions > ₦10,000,000 (Corporate)
+- Reporting timeline: Within 7 days to NFIU
+- Enhanced Due Diligence (EDD) for Politically Exposed Persons (PEPs)
+
+2. KNOW YOUR CUSTOMER (KYC)
+- Tier 1: BVN + Passport photo (Limit: ₦50,000 daily)
+- Tier 2: Tier 1 + Valid ID (Limit: ₦200,000 daily)
+- Tier 3: Tier 2 + Utility bill + Physical verification (Limit: Unlimited)
+
+3. DORMANT ACCOUNTS
+- Definition: No customer-initiated transaction for 12 months
+- Excludes system-generated charges
+- Unclaimed Balances: After 10 years, transfer to CBN Unclaimed Funds Pool
+- Annual publication of dormant accounts required
+- Customer can claim anytime with proper identification
+
+4. DIGITAL BANKING REGULATIONS
+- Mobile Money: Max wallet balance ₦5,000,000 (Tier 3)
+- Daily transaction limit: ₦1,000,000
+- Internet Banking: Two-factor authentication (2FA) mandatory
+- Session timeout: Max 10 minutes inactivity
+
+5. CONSUMER PROTECTION
+- Transparent fee disclosure
+- Right to account statement
+- Right to close account without penalty
+- Max complaint resolution: 14 days
+- Escalation to CBN if unresolved after 30 days
+
+6. PENALTIES
+- KYC lapses: ₦100,000 per account
+- Late regulatory returns: ₦50,000 per day
+- AML non-compliance: ₦10 million minimum
+- Consumer complaints mishandling: ₦250,000 per case

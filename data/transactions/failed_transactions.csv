@@ -1,0 +1,6 @@
+TransactionID,Date,Account,Description,Amount,FailureReason
+TXN20260201001,2026-02-01,0123456789,Transfer to GTBank,150000.00,Pending Reconciliation
+TXN20260202002,2026-02-02,0234567891,ATM Withdrawal,50000.00,Card Swallowed
+TXN20260205005,2026-02-05,0678901235,Mobile Transfer,10000.00,Account Dormant
+TXN20260207009,2026-02-07,0789012346,International Transfer,5000000.00,Limit Exceeded
+TXN20260208012,2026-02-08,1234567891,Cheque Deposit,25000.00,Missing Signature Card
