@@ -1,7 +1,6 @@
 import gradio as gr
-from langchain_community.llms import Ollama
-from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import OllamaEmbeddings
+from langchain_ollama import OllamaLLM, OllamaEmbeddings  # Updated imports
+from langchain_chroma import Chroma  # Updated import
 import time
 from pathlib import Path
 import sys
@@ -34,7 +33,7 @@ def initialize_system():
             embedding_function=embeddings,
             collection_name="wema_knowledge"
         )
-        llm = Ollama(model="mistral")
+        llm = OllamaLLM(model="mistral")
         retriever = db.as_retriever(search_kwargs={"k": 5})
         print("✅ System ready!\n")
         return llm, retriever, db
@@ -148,9 +147,8 @@ for category, questions in DEMO_CATEGORIES.items():
 
 # Build Gradio interface
 with gr.Blocks(
-    title="Wema Bank AI Assistant",
-    theme=gr.themes.Soft(primary_hue="purple")
-) as demo:
+    title="Wema Bank AI Assistant"
+) as demo:  # Removed theme from here
     
     gr.Markdown("""
     # 🏦 Wema Bank AI Assistant
@@ -165,7 +163,7 @@ with gr.Blocks(
             chatbot = gr.Chatbot(
                 label="Banking Assistant",
                 height=500,
-                show_copy_button=True
+                buttons=["copy"]  # Replaced show_copy_button with this
             )
             
             with gr.Row():
@@ -250,5 +248,6 @@ if __name__ == "__main__":
         server_name="0.0.0.0",
         server_port=7860,
         share=False,
-        show_error=True
+        show_error=True,
+        theme=gr.themes.Soft(primary_hue="purple")  # Moved theme here
     )
