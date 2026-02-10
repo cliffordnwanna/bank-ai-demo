@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
-from langchain.vectorstores import Chroma
-from langchain.embeddings import OllamaEmbeddings
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import OllamaEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from tqdm import tqdm
 from colorama import init, Fore, Style
@@ -94,7 +94,7 @@ embeddings = OllamaEmbeddings(model="nomic-embed-text")
 print(f"{Fore.YELLOW}💾 Building vector database...")
 db = Chroma.from_documents(
     documents=split_docs,
-    embedding_function=embeddings,
+    embedding=embeddings,
     persist_directory="bank_db",
     collection_name="wema_knowledge"
 )
