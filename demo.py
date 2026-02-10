@@ -7,6 +7,19 @@ import sys
 
 init(autoreset=True)
 
+SYSTEM_PROMPT = """
+You are a commercial Bank Internal AI Assistant.
+
+Rules:
+- Answer ONLY using the provided context
+- If the answer is not in the context say:
+    "I could not find this information in the bank knowledge base."
+- Never guess banking policies
+- Never fabricate procedures
+- Do not use general world knowledge for bank rules
+- Keep answers concise and professional
+"""
+
 # Demo questions
 DEMO_QUESTIONS = [
     {
@@ -66,10 +79,11 @@ def main():
     print(f"{Fore.YELLOW}🔧 Initializing system...\n")
 
     try:
-        embeddings = OllamaEmbeddings(model="mistral")
+        embeddings = OllamaEmbeddings(model="nomic-embed-text")
         db = Chroma(
             persist_directory="bank_db",
-            embedding_function=embeddings
+            embedding_function=embeddings,
+            collection_name="wema_knowledge"
         )
         llm = Ollama(model="mistral")
         retriever = db.as_retriever(search_kwargs={"k": 5})
@@ -79,23 +93,35 @@ def main():
 
     print(f"{Fore.GREEN}✓ System ready!\n")
 
+    def detect_scope(query: str):
+        q = query.lower()
+        if any(w in q for w in ["policy", "procedure", "guideline"]):
+            return {"type": "policy"}
+        if any(w in q for w in ["regulation", "cbn", "compliance"]):
+            return {"type": "regulation"}
+        if any(w in q for w in ["memo", "circular", "announcement"]):
+            return {"type": "memo"}
+        return None
+
     def ask(question):
-        docs = retriever.get_relevant_documents(question)
-        context = "\n\n".join([f"[Source {i+1}]: {d.page_content}" for i, d in enumerate(docs)])
+        filter_meta = detect_scope(question)
+        if filter_meta:
+            docs = db.similarity_search(question, k=5, filter=filter_meta)
+        else:
+            docs = db.similarity_search(question, k=5)
+
+        context = "\n\n".join([d.page_content for d in docs])
         
-        prompt = f"""You are an expert Nigerian banking operations assistant for Wema Bank.
+        prompt = f"""
+{SYSTEM_PROMPT}
 
-Answer questions accurately using ONLY the provided context below.
-Be specific, cite policies when relevant, and give practical banking advice.
-Use Nigerian banking terminology.
-
-CONTEXT:
+Context:
 {context}
 
-QUESTION:
-{question}
+Question: {question}
 
-ANSWER:"""
+Answer:
+"""
         
         start_time = time.time()
         response = llm.invoke(prompt)

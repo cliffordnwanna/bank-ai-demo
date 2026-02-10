@@ -6,6 +6,19 @@ import time
 from pathlib import Path
 import sys
 
+SYSTEM_PROMPT = """
+You are a commercial Bank Internal AI Assistant.
+
+Rules:
+- Answer ONLY using the provided context
+- If the answer is not in the context say:
+    "I could not find this information in the bank knowledge base."
+- Never guess banking policies
+- Never fabricate procedures
+- Do not use general world knowledge for bank rules
+- Keep answers concise and professional
+"""
+
 # Initialize AI system
 def initialize_system():
     print("🔧 Loading AI system...")
@@ -15,10 +28,11 @@ def initialize_system():
         return None, None, None
 
     try:
-        embeddings = OllamaEmbeddings(model="mistral")
+        embeddings = OllamaEmbeddings(model="nomic-embed-text")
         db = Chroma(
             persist_directory="bank_db",
-            embedding_function=embeddings
+            embedding_function=embeddings,
+            collection_name="wema_knowledge"
         )
         llm = Ollama(model="mistral")
         retriever = db.as_retriever(search_kwargs={"k": 5})
@@ -30,6 +44,16 @@ def initialize_system():
 
 llm, retriever, db = initialize_system()
 
+def detect_scope(query: str):
+    q = query.lower()
+    if any(w in q for w in ["policy", "procedure", "guideline"]):
+        return {"type": "policy"}
+    if any(w in q for w in ["regulation", "cbn", "compliance"]):
+        return {"type": "regulation"}
+    if any(w in q for w in ["memo", "circular", "announcement"]):
+        return {"type": "memo"}
+    return None
+
 def ask_question(question, history):
     """Process question and return response"""
     
@@ -40,27 +64,29 @@ def ask_question(question, history):
     if not question.strip():
         return history, ""
     
-    # Retrieve relevant documents
-    docs = retriever.get_relevant_documents(question)
-    context = "\n\n".join([f"[Source {i+1}]: {d.page_content}" 
-                          for i, d in enumerate(docs)])
+    # Optional metadata filtering based on query intent
+    filter_meta = detect_scope(question)
+
+    # Retrieve relevant documents with dynamic metadata filter
+    if filter_meta:
+        docs = db.similarity_search(question, k=5, filter=filter_meta)
+    else:
+        docs = db.similarity_search(question, k=5)
+
+    # Build strict grounded context
+    context = "\n\n".join([d.page_content for d in docs])
     
     # Build prompt
-    prompt = f"""You are an expert Nigerian banking operations assistant for Wema Bank.
+    prompt = f"""
+{SYSTEM_PROMPT}
 
-Answer questions accurately using ONLY the provided context below.
-If the context doesn't contain the answer, say "I don't have that information in the knowledge base."
-
-Be specific, cite policies when relevant, and give practical banking advice.
-Use Nigerian banking terminology and context.
-
-CONTEXT:
+Context:
 {context}
 
-QUESTION:
-{question}
+Question: {question}
 
-ANSWER:"""
+Answer:
+"""
     
     # Get response with timing
     start_time = time.time()

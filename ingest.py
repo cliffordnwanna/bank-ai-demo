@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from langchain_community.document_loaders import PyPDFLoader, TextLoader, CSVLoader
+from langchain_community.document_loaders import PyPDFLoader, TextLoader
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -17,10 +17,18 @@ print(f"{Fore.CYAN}{'='*60}\n")
 docs = []
 data_dir = Path("data")
 
-# Text splitter for better chunking
+# Text splitter with semantic-aware separators for policy/legal docs
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1000,
-    chunk_overlap=200,
+    chunk_size=800,
+    chunk_overlap=120,
+    separators=[
+        "\n\nSECTION",
+        "\n\nSection",
+        "\n\nCHAPTER",
+        "\n\n",
+        "\n",
+        ". "
+    ],
     length_function=len,
 )
 
@@ -33,29 +41,17 @@ print(f"{Fore.GREEN}Loading {len(policy_files)} policy documents...")
 for pdf_file in tqdm(policy_files, desc="Policies"):
     try:
         loader = PyPDFLoader(str(pdf_file))
-        docs.extend(loader.load())
+        loaded = loader.load()
+        for d in loaded:
+            d.metadata["type"] = "policy"
+        docs.extend(loaded)
     except Exception as e:
         print(f"{Fore.RED}Error loading {pdf_file.name}: {e}")
 
-# Customer data (TXT)
-customer_files = list(data_dir.glob("customer_data/*.txt"))
-print(f"\n{Fore.GREEN}Loading {len(customer_files)} customer data files...")
-for txt_file in tqdm(customer_files, desc="Customer Data"):
-    try:
-        loader = TextLoader(str(txt_file))
-        docs.extend(loader.load())
-    except Exception as e:
-        print(f"{Fore.RED}Error loading {txt_file.name}: {e}")
+# NOTE: Do not embed customer master data (PII) or transactional tables.
+print(f"\n{Fore.YELLOW}Skipping customer_data/ and transactions/ for embeddings (structured data handled via SQL/API).")
 
-# Transactions (CSV)
-transaction_files = list(data_dir.glob("transactions/*.csv"))
-print(f"\n{Fore.GREEN}Loading {len(transaction_files)} transaction files...")
-for csv_file in tqdm(transaction_files, desc="Transactions"):
-    try:
-        loader = CSVLoader(str(csv_file))
-        docs.extend(loader.load())
-    except Exception as e:
-        print(f"{Fore.RED}Error loading {csv_file.name}: {e}")
+# (Removed transactional CSV ingestion) — keep transactional data in SQL/data warehouse.
 
 # Regulations (TXT)
 regulation_files = list(data_dir.glob("regulations/*.txt"))
@@ -63,7 +59,10 @@ print(f"\n{Fore.GREEN}Loading {len(regulation_files)} regulation documents...")
 for txt_file in tqdm(regulation_files, desc="Regulations"):
     try:
         loader = TextLoader(str(txt_file))
-        docs.extend(loader.load())
+        loaded = loader.load()
+        for d in loaded:
+            d.metadata["type"] = "regulation"
+        docs.extend(loaded)
     except Exception as e:
         print(f"{Fore.RED}Error loading {txt_file.name}: {e}")
 
@@ -73,7 +72,10 @@ print(f"\n{Fore.GREEN}Loading {len(memo_files)} internal memos...")
 for txt_file in tqdm(memo_files, desc="Memos"):
     try:
         loader = TextLoader(str(txt_file))
-        docs.extend(loader.load())
+        loaded = loader.load()
+        for d in loaded:
+            d.metadata["type"] = "memo"
+        docs.extend(loaded)
     except Exception as e:
         print(f"{Fore.RED}Error loading {txt_file.name}: {e}")
 
@@ -86,16 +88,18 @@ print(f"{Fore.GREEN}✓ Created {len(split_docs)} text chunks\n")
 
 # Create embeddings
 print(f"{Fore.YELLOW}🧠 Creating embeddings (this may take a few minutes)...")
-# Note: Ensure Ollama is running and mistral model is pulled
-embeddings = OllamaEmbeddings(model="mistral")
+# Note: Ensure Ollama is running and 'nomic-embed-text' model is pulled
+embeddings = OllamaEmbeddings(model="nomic-embed-text")
 
-# Create vector database
+# Create vector database with explicit collection and persist
 print(f"{Fore.YELLOW}💾 Building vector database...")
 db = Chroma.from_documents(
-    split_docs,
-    embeddings,
-    persist_directory="bank_db"
+    documents=split_docs,
+    embedding_function=embeddings,
+    persist_directory="bank_db",
+    collection_name="wema_knowledge"
 )
+db.persist()
 
 print(f"\n{Fore.CYAN}{'='*60}")
 print(f"{Fore.GREEN}✓ KNOWLEDGE BASE CREATED SUCCESSFULLY!")
