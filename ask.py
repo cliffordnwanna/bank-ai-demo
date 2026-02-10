@@ -4,6 +4,7 @@ from langchain_community.embeddings import OllamaEmbeddings
 from colorama import init, Fore, Style
 import time
 import sys
+from router import classify_query
 
 init(autoreset=True)
 
@@ -57,14 +58,27 @@ def main():
         return None
 
     def ask(question):
-        # Optional metadata filtering based on query intent
+        # Routing: decide query type
+        query_type = classify_query(question)
+
+        if query_type == "DATA":
+            print(f"\n{Fore.MAGENTA}🔒 This question requires access to live banking data.")
+            print(f"{Fore.MAGENTA}Connect the assistant to the Core Banking/EDW system to enable this feature.\n")
+            return
+
+        if query_type == "ACTION":
+            print(f"\n{Fore.MAGENTA}🛠 This is an action request (messaging/automation).")
+            print(f"{Fore.MAGENTA}Action tools are not enabled yet.\n")
+            return
+
+        # Knowledge retrieval only
         filter_meta = detect_scope(question)
 
         # Retrieve relevant documents with dynamic metadata filter
         if filter_meta:
-            docs = db.similarity_search(question, k=5, filter=filter_meta)
+            docs = db.similarity_search(question, k=4, filter=filter_meta)
         else:
-            docs = db.similarity_search(question, k=5)
+            docs = db.similarity_search(question, k=4)
 
         # Build strict, grounded context
         context = "\n\n".join([d.page_content for d in docs])

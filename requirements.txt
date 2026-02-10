@@ -1,5 +1,5 @@
 langchain==0.1.9
-langchain-community==0.0.20
+langchain-community
 pypdf==4.0.1
 chromadb==0.4.22
 ollama==0.1.6
